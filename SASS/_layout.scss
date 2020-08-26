@@ -1,0 +1,35 @@
+*,*:before,*:after{
+	box-sizing: border-box;
+}
+.wrap{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+body{
+    font-family: "Microsoft Jhen"
+}
+/* loader */
+.loaderbox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: all 0.5s;
+    .loader{
+        width: 100px;
+        height: 100px;
+        border: 10px solid #ededed;
+        border-top: 10px solid rgb(161, 228, 236);
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: spin 1s linear infinite;
+    }
+}
+.loaderbox.close{
+    opacity: 0;
+}
+@keyframes spin {
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+/* loader */

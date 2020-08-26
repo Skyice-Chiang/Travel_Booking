@@ -1,21 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Travel Booking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Skyice">
     <meta name="description" content="試做旅館預約服務網">
-    <meta name="keyword" content="travel,booking,travel booking,rooms" >
-    <meta property="og:title" content="Travel Booking" >
+    <meta name="keyword" content="travel,booking,travel booking,rooms">
+    <meta property="og:title" content="Travel Booking">
     <meta property="og:description" content="練習旅館預定服務網">
-    <meta property="og:type" content="website" >
-    <meta property="og:url" content="https://drive.google.com/drive/u/1/folders/11glVftJmkXhzzh947qXzklaYqCIWUvhv" >
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://drive.google.com/drive/u/1/folders/11glVftJmkXhzzh947qXzklaYqCIWUvhv">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="CSS/all.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
+    <div class="loaderbox">
+        <div class="loader"></div>
+    </div>
+    <div class="wrap">
+        <div class="index_header">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"></div>
+                    <div class="swiper-slide"></div>
+                    <div class="swiper-slide"></div>
+                </div>
+            </div>
+            <div class="travel_info">
+                <img src="IMG/index_icon/logo_white.svg" alt="Logo">
+                <div class="infotxt">
+                    <div class="social_icon">
+                        <img src="IMG/index_icon/instagram-brands.svg" alt="instagram_icon">
+                        <img src="IMG/index_icon/facebook-square-brands.svg" alt="facebook_icon">
+                    </div>
+                    <ul class="contact">
+                        <li>
+                            <img src="IMG/index_icon/phone-alt-solid.svg" alt="phone_icon">
+                            <p>02-17264937</p>
+                        </li>
+                        <li>
+                            <img src="IMG/index_icon/envelope-solid.svg" alt="envelope_icon">
+                            <p>whitespace@whitespace.com.tw</p>
+                        </li>
+                        <li>
+                            <img src="IMG/index_icon/envelope-solid.svg" alt="home_icon">
+                            <p>台北市羅斯福路十段30號</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <ul class="room_list">
+
+        </ul>
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="JS/all.js"></script>
 </body>
+
 </html>
