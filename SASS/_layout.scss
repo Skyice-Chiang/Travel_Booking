@@ -4,9 +4,11 @@
 .wrap{
     max-width: 1200px;
     margin: 0 auto;
+    opacity: 0;
+    transition: all 0.5s;
 }
 body{
-    font-family: "Microsoft Jhen"
+    font-family: "Noto Sans Tc","Microsoft Jhen",sans-serif;
 }
 /* loader */
 .loaderbox{

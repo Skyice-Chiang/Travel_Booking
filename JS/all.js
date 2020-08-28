@@ -1,4 +1,5 @@
 let loader = document.querySelector(".loaderbox");
+let dom = document.querySelector(".wrap");
 let indexBanner = document.querySelector(".swiper-wrapper");
 let roomList = document.querySelector(".room_list");
 const url = "https://challenge.thef2e.com/api/thef2e2019/stage6/";
@@ -13,6 +14,7 @@ function getData(){
     if(location.pathname !== "room.html"){
         axios.get(url+"rooms")
         .then(res=>{
+            loaderOut();
             console.log(res.data.items);
             roomData.push(...res.data.items);
             renderRooms();
@@ -21,10 +23,19 @@ function getData(){
     }
 };
 
+//loader
+function loaderOut(){
+    loader.style.opacity = "0";
+    dom.style.opacity = "1";
+};
+
 //render rooms
 function renderRooms(){
     let roomStr = "";
+    let imgStr = "";
     roomData.forEach(item=>{
+        imgStr += `                    
+        <div class="swiper-slide" style="background-image: url(${item.imageUrl})"></div>`;
         roomStr += `
         <li>
             <a href="./room?${item.id}">
@@ -39,5 +50,18 @@ function renderRooms(){
             </a>
         </li>`
     });
+    indexBanner.innerHTML = imgStr;
     roomList.innerHTML = roomStr;
+    carousel();
+};
+
+//carousel
+function carousel(){
+    let mySwiper = new Swiper(".swiper-container",{
+        speed: 1000,
+        loop: true,
+        autoplay:{
+            delay: 2000,
+        }
+    });
 };
