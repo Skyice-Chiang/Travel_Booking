@@ -63,6 +63,7 @@ img {
   margin: 0 auto;
   opacity: 0;
   transition: all 0.5s;
+  position: relative;
 }
 
 body {
@@ -189,7 +190,7 @@ body {
 }
 
 .room_list {
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
