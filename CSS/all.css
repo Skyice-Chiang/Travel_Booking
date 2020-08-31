@@ -156,6 +156,18 @@ body {
   margin: 0 6px;
 }
 
+@media (max-width: 420px) {
+  .travel_info {
+    width: 100%;
+  }
+  .infotxt {
+    flex-direction: column;
+  }
+  .social_icon {
+    border: none;
+  }
+}
+
 .contact li {
   color: #FFF;
   display: flex;
@@ -176,8 +188,107 @@ body {
   letter-spacing: 1px;
 }
 
+.room_list {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 553px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
 .room_list a {
   display: block;
+  color: #000000;
+  text-decoration: none;
+}
+
+.room_list li {
+  width: 300px;
+  margin: 20px;
+  background: #F7F7F7;
+  box-shadow: 2px 2px 9px 0 rgba(0, 0, 0, 0.15);
+  margin-bottom: 58px;
+  position: relative;
+  overflow: hidden;
+}
+
+.room_list li:hover .active {
+  transform: translateY(0);
+}
+
+.room_list li:hover .price {
+  opacity: 1;
+}
+
+.room_list li:hover .imagebox {
+  transform: scale(1.1);
+}
+
+.room_list .imagebox {
+  display: block;
+  height: 350px;
+  background-size: cover;
+  background-position: center -100px;
+  transition: all 0.3s;
+}
+
+.room_list .txtbox {
+  font-size: 14px;
+  letter-spacing: 1px;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(40px);
+  transition: all 0.5s;
+}
+
+.room_list .txtbox h2 {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .room_list {
+    width: 100%;
+  }
+  .room_list li {
+    width: 40%;
+  }
+  .room_list .txtbox {
+    transform: translateY(0);
+  }
+  .room_list .price {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .room_list li {
+    width: 90%;
+  }
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  opacity: 0;
+  transition: all 1s;
+}
+
+.price span {
+  font-size: 20px;
+}
+
+.price .pricetxt {
+  color: #6D7278;
+  font-size: 12px;
 }
 
 /* index */

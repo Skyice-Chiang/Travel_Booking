@@ -40,11 +40,11 @@ function renderRooms(){
         <li>
             <a href="./room?${item.id}">
                 <div class="imagebox" style="background-image: url(${item.imageUrl})"></div>
-                <div class="txtbox">
+                <div class="txtbox active">
                     <h2>${item.name}</h2>
                     <div class="price">
-                        <div class="pricetxt"><span>NT.${item.normalDayPrice}</span> 平日</div>
-                        <div class="pricetxt">NT.${item.holidayPrice} 假日</div>
+                        <p><span>NT.${item.normalDayPrice}</span> 平日</p>
+                        <p class="pricetxt">NT.${item.holidayPrice} 假日</p>
                     </div>
                 </div>
             </a>
