@@ -1,7 +1,12 @@
-let loader = document.querySelector(".loaderbox");
-let dom = document.querySelector(".wrap");
-let indexBanner = document.querySelector(".swiper-wrapper");
-let roomList = document.querySelector(".room_list");
+const loader = document.querySelector(".loaderbox");
+const dom = document.querySelector(".wrap");
+const indexBanner = document.querySelector(".swiper-wrapper");
+const roomList = document.querySelector(".room_list");
+const imgL = document.querySelector(".image_left");
+const imgR = document.querySelector(".image_right");
+const roomInfo = document.querySelector(".room_info");
+const roomPrice = document.querySelector(".room_price");
+const offer = document.querySelectorAll(".offer p");
 const url = "https://challenge.thef2e.com/api/thef2e2019/stage6/";
 const token = "KoqHbASiNrESC9A14y7BEp1dMUyfGk8o4rtlzn0Kdp9l2iFn3w99hZext0Dj";
 const roomData = [];
@@ -22,6 +27,7 @@ function getData() {
             })
             .catch(err => { console.log("error") })
     } else if (location.pathname.slice(1) === "room.html") {
+        //single room
         const roomID = location.search.slice(1);
         axios.get(`${url}room/${roomID}`)
             .then(res => {
@@ -66,8 +72,59 @@ function renderRooms() {
 };
 
 //render single room
-function renderSingleRoom(){
+function renderSingleRoom() {
     console.log(singleRoom);
+    let imgStrL = "";
+    let imgStrR = "";
+    let infoStr = "";
+    let priceStr = "";
+    singleRoom.forEach(item => {
+        imgStrL += `<a href="${item.imageUrl[0]}" data-lightbox="room_image" data-title="${item.name}" style="background-image: url(${item.imageUrl[0]})"></a>`;
+        imgStrR +=
+            `<div class="image_small">
+                <a href="${item.imageUrl[1]}" data-lightbox="room_image" data-title="${item.name}" style="background-image: url(${item.imageUrl[1]})"></a>
+            </div>
+            <div class="image_small">
+                <a href="${item.imageUrl[2]}" data-lightbox="room_image" data-title="${item.name}" style="background-image: url(${item.imageUrl[2]})"></a>
+            </div>`;
+        infoStr += `
+            <h2>${item.name}</h2>
+            <ul>
+                <li><p>Guest Limit: ${item.descriptionShort.GuestMin} ~ ${item.descriptionShort.GuestMax}</p></li>
+                <li><p>Bed Type: ${item.descriptionShort.Bed[0]}</p></li>
+                <li><p>Bath Amount: ${item.descriptionShort["Private-Bath"]}</p></li>
+                <li><p>Room Size: ${item.descriptionShort.Footage}</p></li>
+            </ul>
+            <p class="align">${item.description}</p>
+            <br/>
+            <p>＼＼＼</p>
+            <br/>
+            <div class="check_in_out">
+                <p>Check In <br><span>${item.checkInAndOut.checkInEarly} － ${item.checkInAndOut.checkInLate}</span></p>
+                <p>Check Out <br><span>${item.checkInAndOut.checkOut}</span></p>
+            </div>`;
+        priceStr += `                   
+            <p><span class="normal_price">NT.${item.normalDayPrice}</span><br/>Normal Day<br/>(Monday~Thursday)</p>
+            <p><span>NT.${item.holidayPrice}</span> <br/>Holiday<br/>(Friday~Sunday)</p>`;
+    });
+    imgL.innerHTML = imgStrL;
+    imgR.innerHTML = imgStrR;
+    roomInfo.innerHTML = infoStr;
+    roomPrice.innerHTML = priceStr;
+    lightboxOption();
+    offerJudge();
+};
+
+//offer service
+function offerJudge(){
+    let key = singleRoom[0].amenities;
+    offer.forEach((item,index)=>{
+        if(key[item.textContent] === true){
+            document.querySelectorAll(".offer")[index].classList.add("active");
+        }else{
+            document.querySelectorAll(".offer")[index].classList.remove("active");
+        }
+    });
 };
 
 //carousel
@@ -80,3 +137,13 @@ function carousel() {
         }
     });
 };
+
+//lightbox
+function lightboxOption() {
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        "imageFadeDuration": 600,
+        "fadeDuration": 600,
+    })
+}

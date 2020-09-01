@@ -1,0 +1,198 @@
+/* room */
+.index_room {
+    display   : flex;
+    width     : 100%;
+    height    : 596px;
+    position  : relative;
+    box-shadow: 0px 4px 10px 0 rgba(0, 0, 0, 0.2);
+
+    h1 {
+        position: absolute;
+        top     : 32px;
+        left    : 50px;
+        z-index : 2;
+
+        a {
+            display    : block;
+            width      : 164px;
+            height     : 53px;
+            background : url(../IMG/index_icon/logo_block.svg) no-repeat;
+            text-indent: 101%;
+            white-space: nowrap;
+            overflow   : hidden;
+        }
+    }
+}
+
+//All room image
+.image_left {
+    width   : 70%;
+    height  : 596px;
+    overflow: hidden;
+
+    a {
+        display            : block;
+        height             : 596px;
+        background-position: center bottom;
+        background-size    : cover;
+        transition         : all 0.5s;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.image_right {
+    width : 30%;
+    height: 596px;
+
+    .image_small {
+        height  : 50%;
+        overflow: hidden;
+
+        a {
+            display            : block;
+            height             : 100%;
+            background-position: center;
+            background-size    : cover;
+            transition         : all 0.5s;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+//single room info
+.content {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 60px 70px;
+    .maininfo {
+        margin-right: 40px;
+        display: flex;
+    }
+
+    .infobox {
+        width       : 70%;
+        margin-right: 38px;
+    }
+}
+
+.room_info {
+    font-size     : 14px;
+    letter-spacing: 1px;
+    line-height   : 1.5;
+
+    h2 {
+        font-size    : 36px;
+        font-weight  : bold;
+        margin-bottom: 30px;
+    }
+
+    ul {
+        margin-bottom: 20px;
+
+        li {
+            margin-bottom: 10px;
+        }
+    }
+
+    .align {
+        width     : 100%;
+        text-align: justify;
+        font-size : 12px;
+    }
+}
+
+.check_in_out {
+    display        : flex;
+    justify-content: space-between;
+
+    span {
+        font-size: 20px;
+    }
+}
+
+.servicelist {
+    display         : flex;
+    flex-wrap       : wrap;
+    margin-top      : 40px;
+    background-color: #F0F0F0;
+
+    .offer {
+        width      : 24%;
+        display    : flex;
+        align-items: center;
+        margin     : 20px;
+        opacity: 0.3;
+    }
+
+    i {
+        font-size   : 20px;
+        margin-right: 16px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+    .active{
+        opacity: 1;
+    }
+}
+
+.room_price {
+    text-align    : right;
+    font-size     : 12px;
+    line-height   : 1.5;
+    letter-spacing: 1px;
+    color         : #6D7278;
+
+    p {
+        margin-top: 10px;
+    }
+
+    span {
+        color    : #000;
+        font-size: 16px;
+    }
+
+    .normal_price {
+        font-size: 30px;
+    }
+}
+
+//calendar_area
+
+.calendar{
+    width: 380px;
+    height: 390px;
+    padding: 30px 30px 38px;
+    background-color: #F7F7F7;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reserve {
+    letter-spacing: 2px;
+    color           : #FFF;
+    background-color: #575757;
+    margin-top      : 26px;
+    padding: 24px 16px;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s;
+    outline: none;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+    &:active{
+        transform: scale(0.9);
+        color: #000;
+        background-color: rgb(204, 204, 204);
+    }
+}
+
+/* room */
