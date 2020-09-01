@@ -15,9 +15,10 @@ getData();
 
 //Ajax
 function getData() {
+    let netJudge = location.pathname.split("/");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     //roomtypes
-    if (location.pathname.slice(1) !== "room.html") {
+    if (netJudge[netJudge.length-1] !== "room.html") {
         axios.get(url + "rooms")
             .then(res => {
                 loaderOut();
@@ -26,7 +27,7 @@ function getData() {
                 renderRooms();
             })
             .catch(err => { console.log("error") })
-    } else if (location.pathname.slice(1) === "room.html") {
+    } else if (netJudge[netJudge.length-1] === "room.html") {
         //single room
         const roomID = location.search.slice(1);
         axios.get(`${url}room/${roomID}`)
