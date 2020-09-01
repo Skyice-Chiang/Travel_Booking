@@ -426,6 +426,8 @@ body {
 }
 
 .servicelist i {
+  text-align: center;
+  width: 20px;
   font-size: 20px;
   margin-right: 16px;
 }
