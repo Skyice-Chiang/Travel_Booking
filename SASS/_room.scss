@@ -24,6 +24,19 @@
     }
 }
 
+@include phone{
+    .index_room{
+        height: 298px;
+        h1{
+            top: 20px;
+            left: 20px;
+            a{
+                background-size: 80%;
+            }
+        }
+    }
+}
+
 //All room image
 .image_left {
     width   : 70%;
@@ -65,6 +78,21 @@
     }
 }
 
+@include phone{
+    .image_left,.image_right{
+        height: 298px;
+    }
+    .image_left{
+        width: 60%;
+        a{
+            height: 298px;
+        }
+    }
+    .image_right{
+        width: 40%;
+    }
+}
+
 //single room info
 .content {
     display: flex;
@@ -76,11 +104,32 @@
     }
 
     .infobox {
-        width       : 70%;
+        width       : 72%;
         margin-right: 38px;
     }
 }
 
+@include ipad{
+    .content{
+        flex-direction: column;
+        .maininfo{
+            margin: 0 auto;
+        }
+    }
+}
+
+@include phone{
+    .content{
+        padding: 30px 20px 70px;
+        .maininfo{
+            flex-direction: column;
+        }
+        .infobox{
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+}
 .room_info {
     font-size     : 14px;
     letter-spacing: 1px;
@@ -102,8 +151,15 @@
 
     .align {
         width     : 100%;
-        text-align: justify;
         font-size : 12px;
+    }
+}
+
+@include phone{
+    .room_info{
+        h2{
+            font-size: 28px;
+        }
     }
 }
 
@@ -119,14 +175,16 @@
 .servicelist {
     display         : flex;
     flex-wrap       : wrap;
+    justify-content: space-between;
     margin-top      : 40px;
+    padding: 20px 20px 0 20px;
     background-color: #F0F0F0;
 
     .offer {
-        width      : 24%;
+        width      : 30%;
         display    : flex;
         align-items: center;
-        margin     : 20px;
+        margin-bottom: 20px;
         opacity: 0.3;
     }
 
@@ -166,6 +224,14 @@
     }
 }
 
+@include phone{
+    .servicelist{
+        .offer{
+            width: 48%;
+        }
+    }
+}
+
 //calendar_area
 
 .calendar{
@@ -174,6 +240,45 @@
     padding: 30px 30px 38px;
     background-color: #F7F7F7;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    .year_month{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+    }
+}
+
+@include ipad{
+    .calendar{
+        display: none;
+    }
+}
+
+.date_area{
+    width: 100%;
+    li{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .boxsize{
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 6px;
+        }
+    }
+    .weekdays{
+        margin-bottom: 30px;
+    }
+    .date{
+        font-size: 14px;
+    }
 }
 
 .reserve {
@@ -194,6 +299,13 @@
         transform: scale(0.9);
         color: #000;
         background-color: rgb(204, 204, 204);
+    }
+}
+
+@include ipad{
+    .reserve{
+        width: 100%;
+        margin-top: 40px;
     }
 }
 

@@ -7,6 +7,7 @@ const imgR = document.querySelector(".image_right");
 const roomInfo = document.querySelector(".room_info");
 const roomPrice = document.querySelector(".room_price");
 const offer = document.querySelectorAll(".offer p");
+const calendar = document.querySelector(".calendar");
 const url = "https://challenge.thef2e.com/api/thef2e2019/stage6/";
 const token = "KoqHbASiNrESC9A14y7BEp1dMUyfGk8o4rtlzn0Kdp9l2iFn3w99hZext0Dj";
 const roomData = [];
@@ -18,7 +19,7 @@ function getData() {
     let netJudge = location.pathname.split("/");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     //roomtypes
-    if (netJudge[netJudge.length-1] !== "room.html") {
+    if (netJudge[netJudge.length - 1] !== "room.html") {
         axios.get(url + "rooms")
             .then(res => {
                 loaderOut();
@@ -27,7 +28,7 @@ function getData() {
                 renderRooms();
             })
             .catch(err => { console.log("error") })
-    } else if (netJudge[netJudge.length-1] === "room.html") {
+    } else if (netJudge[netJudge.length - 1] === "room.html") {
         //single room
         const roomID = location.search.slice(1);
         axios.get(`${url}room/${roomID}`)
@@ -114,19 +115,74 @@ function renderSingleRoom() {
     roomPrice.innerHTML = priceStr;
     lightboxOption();
     offerJudge();
+    renderCalendar();
 };
 
 //offer service
-function offerJudge(){
+function offerJudge() {
     let key = singleRoom[0].amenities;
-    offer.forEach((item,index)=>{
-        if(key[item.textContent] === true){
+    offer.forEach((item, index) => {
+        if (key[item.textContent] === true) {
             document.querySelectorAll(".offer")[index].classList.add("active");
-        }else{
+        } else {
             document.querySelectorAll(".offer")[index].classList.remove("active");
         }
     });
 };
+
+//render calendar
+function renderCalendar() {
+    const date = new Date();
+    const yy = date.getFullYear();
+    const mm = date.getMonth();
+    const dt = date.getDate();
+    const dy = date.getDay();
+    const firstDay = new Date(yy, mm, 1).getDay(); //check firstday's weekdays
+    let days = judgeDays(date);
+}
+//judge month's days
+function judgeDays(date) {
+    const nowMonth = date.getMonth() + 1;
+    console.log(date.getDay());
+    const preMonth = nowMonth - 1 || 12;
+    const nextMonth = ((nowMonth) => { if (nowMonth === 12) { return 1 } else { return nowMonth + 1 } })(nowMonth);
+    const daysfactor1 = [1, 3, 5, 7, 8, 10, 12];
+    const daysfactor2 = [4, 6, 9, 11];
+    const dateData = {
+        nowMonth: pushDays(nowMonth),
+        preMonth: pushDays(preMonth),
+        nextMonth: pushDays(nextMonth),
+    };
+
+    //judge days amount
+    function pushDays(month) {
+        let days = [];
+        if (daysfactor1.indexOf(month) !== -1) {
+            for (let i = 1; i < 32; i++) {
+                days.push(i);
+            };
+        } else if (daysfactor2.indexOf(month) !== -1) {
+            for (let i = 1; i < 31; i++) {
+                days.push(i);
+            };
+        } else {
+            //judge leap year , remainder === 0
+            if (date.getFullYear() % 4 === 0) {
+                for (let i = 1; i < 30; i++) {
+                    days.push(i);
+                };
+            } else {
+                for (let i = 1; i < 29; i++) {
+                    days.push(i);
+                };
+            }
+        }
+        return days;
+    };
+    return dateData;
+}
+
+
 
 //carousel
 function carousel() {

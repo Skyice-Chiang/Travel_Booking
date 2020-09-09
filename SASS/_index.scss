@@ -120,6 +120,7 @@
         }
         &:hover .imagebox{
             transform:scale(1.1);
+            opacity: 1;
         }        
     }
     .imagebox {
@@ -127,6 +128,7 @@
         height             : 350px;
         background-size    : cover;
         background-position: center -100px;
+        opacity: 0.7;
         transition: all 0.3s;
     }
     .txtbox{
