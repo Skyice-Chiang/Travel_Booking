@@ -24,13 +24,15 @@
     }
 }
 
-@include phone{
-    .index_room{
+@include phone {
+    .index_room {
         height: 298px;
-        h1{
-            top: 20px;
+
+        h1 {
+            top : 20px;
             left: 20px;
-            a{
+
+            a {
                 background-size: 80%;
             }
         }
@@ -78,29 +80,35 @@
     }
 }
 
-@include phone{
-    .image_left,.image_right{
+@include phone {
+
+    .image_left,
+    .image_right {
         height: 298px;
     }
-    .image_left{
+
+    .image_left {
         width: 60%;
-        a{
+
+        a {
             height: 298px;
         }
     }
-    .image_right{
+
+    .image_right {
         width: 40%;
     }
 }
 
 //single room info
 .content {
-    display: flex;
+    display        : flex;
     justify-content: space-between;
-    padding: 50px 60px 70px;
+    padding        : 50px 60px 70px;
+
     .maininfo {
         margin-right: 40px;
-        display: flex;
+        display     : flex;
     }
 
     .infobox {
@@ -109,27 +117,31 @@
     }
 }
 
-@include ipad{
-    .content{
+@include ipad {
+    .content {
         flex-direction: column;
-        .maininfo{
+
+        .maininfo {
             margin: 0 auto;
         }
     }
 }
 
-@include phone{
-    .content{
+@include phone {
+    .content {
         padding: 30px 20px 70px;
-        .maininfo{
+
+        .maininfo {
             flex-direction: column;
         }
-        .infobox{
-            width: 100%;
+
+        .infobox {
+            width : 100%;
             margin: 0 auto;
         }
     }
 }
+
 .room_info {
     font-size     : 14px;
     letter-spacing: 1px;
@@ -150,14 +162,14 @@
     }
 
     .align {
-        width     : 100%;
-        font-size : 12px;
+        width    : 100%;
+        font-size: 12px;
     }
 }
 
-@include phone{
-    .room_info{
-        h2{
+@include phone {
+    .room_info {
+        h2 {
             font-size: 28px;
         }
     }
@@ -175,22 +187,22 @@
 .servicelist {
     display         : flex;
     flex-wrap       : wrap;
-    justify-content: space-between;
+    justify-content : space-between;
     margin-top      : 40px;
-    padding: 20px 20px 0 20px;
+    padding         : 20px 20px 0 20px;
     background-color: #F0F0F0;
 
     .offer {
-        width      : 30%;
-        display    : flex;
-        align-items: center;
+        width        : 30%;
+        display      : flex;
+        align-items  : center;
         margin-bottom: 20px;
-        opacity: 0.3;
+        opacity      : 0.3;
     }
 
     i {
-        text-align: center;
-        width: 20px;
+        text-align  : center;
+        width       : 20px;
         font-size   : 20px;
         margin-right: 16px;
     }
@@ -198,7 +210,8 @@
     p {
         font-size: 12px;
     }
-    .active{
+
+    .active {
         opacity: 1;
     }
 }
@@ -224,9 +237,9 @@
     }
 }
 
-@include phone{
-    .servicelist{
-        .offer{
+@include phone {
+    .servicelist {
+        .offer {
             width: 48%;
         }
     }
@@ -234,77 +247,118 @@
 
 //calendar_area
 
-.calendar{
-    width: 380px;
-    height: 390px;
-    padding: 30px 30px 38px;
-    background-color: #F7F7F7;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    .year_month{
-        display: flex;
+.datepicker {
+    letter-spacing: 2px;
+    max-width     : 380px;
+    margin        : 0 auto;
+    background    : #F7F7F7;
+    box-shadow    : 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+    padding: 10px 20px 0;
+    .datehead {
+        display        : flex;
         justify-content: space-between;
-        align-items: center;
-        font-size: 18px;
-        font-weight: bold;
-        letter-spacing: 2px;
+        align-items    : center;
+        text-align     : center;
+        font-weight    : bold;
+        padding        : 0 20px;
+
+        a {
+            display        : block;
+            text-decoration: none;
+            color          : #6D7278;
+            padding        : 20px;
+        }
+
+        i {
+            font-size: 20px;
+        }
+    }
+
+    .datebody {
+        display: table;
+        margin : 0 auto;
+    }
+
+    .datebox {
+        display: flex;
+        margin : 0 auto;
+
+        .dateitem {
+            color      : #6D7278;
+            width      : 44px;
+            height     : 44px;
+            margin     : 2px;
+            line-height: 40px;
+            text-align : center;
+            border     : 1px solid transparent;
+        }
+
+        .picker {
+            &:hover {
+                background-color: rgb(220, 240, 255);
+                color           : rgb(100, 150, 150);
+                cursor          : pointer;
+            }
+        }
+
+        .today {
+            color : rgb(80, 150, 200);
+            border: 1px solid rgb(100, 180, 200);
+        }
+
+        .no-choose {
+            opacity: 0.4;
+        }
+
+        .picker_item {
+            color           : rgb(50, 60, 80);
+            background-color: rgb(220, 240, 250);
+            border          : 1px solid transparent;
+        }
+
+        .picker_between {
+            background-color: rgba(220, 240, 250, 0.5);
+        }
+    }
+
+    .datebox:last-child {
         margin-bottom: 20px;
     }
 }
 
-@include ipad{
-    .calendar{
+@include ipad {
+    .datepicker {
         display: none;
     }
 }
 
-.date_area{
-    width: 100%;
-    li{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .boxsize{
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 6px;
-        }
-    }
-    .weekdays{
-        margin-bottom: 30px;
-    }
-    .date{
-        font-size: 14px;
-    }
-}
 
 .reserve {
-    letter-spacing: 2px;
+    letter-spacing  : 2px;
     color           : #FFF;
     background-color: #575757;
     margin-top      : 26px;
-    padding: 24px 16px;
-    border: none;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s;
-    outline: none;
-    &:hover{
-        cursor: pointer;
+    padding         : 24px 16px;
+    border          : none;
+    box-shadow      : 2px 2px 5px rgba(0, 0, 0, 0.15);
+    transition      : all 0.3s;
+    outline         : none;
+
+    &:hover {
+        cursor   : pointer;
         transform: scale(1.05);
     }
-    &:active{
-        transform: scale(0.9);
-        color: #000;
+
+    &:active {
+        transform       : scale(0.9);
+        color           : #000;
         background-color: rgb(204, 204, 204);
     }
 }
 
-@include ipad{
-    .reserve{
-        width: 100%;
+@include ipad {
+    .reserve {
+        width     : 100%;
         margin-top: 40px;
     }
 }

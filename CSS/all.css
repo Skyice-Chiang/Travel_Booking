@@ -375,7 +375,8 @@ body {
 }
 
 @media (max-width: 420px) {
-  .image_left, .image_right {
+  .image_left,
+  .image_right {
     height: 298px;
   }
   .image_left {
@@ -526,56 +527,88 @@ body {
   }
 }
 
-.calendar {
-  width: 380px;
-  height: 390px;
-  padding: 30px 30px 38px;
-  background-color: #F7F7F7;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+.datepicker {
+  letter-spacing: 2px;
+  max-width: 380px;
+  margin: 0 auto;
+  background: #F7F7F7;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.15);
+  padding: 10px 20px 0;
 }
 
-.calendar .year_month {
+.datepicker .datehead {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 18px;
+  text-align: center;
   font-weight: bold;
-  letter-spacing: 2px;
+  padding: 0 20px;
+}
+
+.datepicker .datehead a {
+  display: block;
+  text-decoration: none;
+  color: #6D7278;
+  padding: 20px;
+}
+
+.datepicker .datehead i {
+  font-size: 20px;
+}
+
+.datepicker .datebody {
+  display: table;
+  margin: 0 auto;
+}
+
+.datepicker .datebox {
+  display: flex;
+  margin: 0 auto;
+}
+
+.datepicker .datebox .dateitem {
+  color: #6D7278;
+  width: 44px;
+  height: 44px;
+  margin: 2px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.datepicker .datebox .picker:hover {
+  background-color: #dcf0ff;
+  color: #649696;
+  cursor: pointer;
+}
+
+.datepicker .datebox .today {
+  color: #5096c8;
+  border: 1px solid #64b4c8;
+}
+
+.datepicker .datebox .no-choose {
+  opacity: 0.4;
+}
+
+.datepicker .datebox .picker_item {
+  color: #323c50;
+  background-color: #dcf0fa;
+  border: 1px solid transparent;
+}
+
+.datepicker .datebox .picker_between {
+  background-color: rgba(220, 240, 250, 0.5);
+}
+
+.datepicker .datebox:last-child {
   margin-bottom: 20px;
 }
 
 @media (max-width: 1024px) {
-  .calendar {
+  .datepicker {
     display: none;
   }
-}
-
-.date_area {
-  width: 100%;
-}
-
-.date_area li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.date_area li .boxsize {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 6px;
-}
-
-.date_area .weekdays {
-  margin-bottom: 30px;
-}
-
-.date_area .date {
-  font-size: 14px;
 }
 
 .reserve {

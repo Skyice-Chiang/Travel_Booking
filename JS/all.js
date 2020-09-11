@@ -115,7 +115,6 @@ function renderSingleRoom() {
     roomPrice.innerHTML = priceStr;
     lightboxOption();
     offerJudge();
-    renderCalendar();
 };
 
 //offer service
@@ -129,59 +128,6 @@ function offerJudge() {
         }
     });
 };
-
-//render calendar
-function renderCalendar() {
-    const date = new Date();
-    const yy = date.getFullYear();
-    const mm = date.getMonth();
-    const dt = date.getDate();
-    const dy = date.getDay();
-    const firstDay = new Date(yy, mm, 1).getDay(); //check firstday's weekdays
-    let days = judgeDays(date);
-}
-//judge month's days
-function judgeDays(date) {
-    const nowMonth = date.getMonth() + 1;
-    console.log(date.getDay());
-    const preMonth = nowMonth - 1 || 12;
-    const nextMonth = ((nowMonth) => { if (nowMonth === 12) { return 1 } else { return nowMonth + 1 } })(nowMonth);
-    const daysfactor1 = [1, 3, 5, 7, 8, 10, 12];
-    const daysfactor2 = [4, 6, 9, 11];
-    const dateData = {
-        nowMonth: pushDays(nowMonth),
-        preMonth: pushDays(preMonth),
-        nextMonth: pushDays(nextMonth),
-    };
-
-    //judge days amount
-    function pushDays(month) {
-        let days = [];
-        if (daysfactor1.indexOf(month) !== -1) {
-            for (let i = 1; i < 32; i++) {
-                days.push(i);
-            };
-        } else if (daysfactor2.indexOf(month) !== -1) {
-            for (let i = 1; i < 31; i++) {
-                days.push(i);
-            };
-        } else {
-            //judge leap year , remainder === 0
-            if (date.getFullYear() % 4 === 0) {
-                for (let i = 1; i < 30; i++) {
-                    days.push(i);
-                };
-            } else {
-                for (let i = 1; i < 29; i++) {
-                    days.push(i);
-                };
-            }
-        }
-        return days;
-    };
-    return dateData;
-}
-
 
 
 //carousel
