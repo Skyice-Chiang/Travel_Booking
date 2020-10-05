@@ -402,8 +402,7 @@ body {
 }
 
 .content .infobox {
-  width: 72%;
-  margin-right: 38px;
+  margin-right: 36px;
 }
 
 @media (max-width: 1024px) {

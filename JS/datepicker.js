@@ -4,7 +4,7 @@ const setDate = new Date(today.getFullYear(), today.getMonth(), 1);
 const yy = today.getFullYear();
 const mm = today.getMonth() + 1;
 const dd = today.getDate();
-let pickerSE = [];
+let pickerboxs = [];
 let pickerData = {};
 const dateData = caculatorDate(setDate);
 render(dateData);
@@ -41,6 +41,8 @@ function render(dateData) {
 		${weekdaysStr(dateData.totalDays)}
 	</div>`;
     dateRender.innerHTML = calendar;
+    displayRange();
+    pickerRender();
 };
 
 //get month total days
@@ -115,7 +117,7 @@ function weekdaysStr(totalDay) {
 //change month
 function changeMonth(e) {
     e.preventDefault();
-    console.log(e.target)
+    console.log(e.target);
     let nowYy = parseInt(document.querySelector(".datehead p").textContent.split("/")[0]);
     let nowMm = parseInt(document.querySelector(".datehead p").textContent.split("/")[1]);
     let picker = e.target.textContent;
@@ -124,13 +126,13 @@ function changeMonth(e) {
 
     //next month
     if (e.target.className === "fas fa-chevron-right" || e.target.className === "next") {
-        if (nowMm < mm + 3) {
+        if (nowMm < mm + 3 && nowMm !== caculatorLimit.ml) {
             nowMm += 1;
             if (nowMm < 13 && nowYy == yy) {
                 let date = new Date(nowYy, nowMm - 1, 1);
                 dateData = caculatorDate(date, nowMm);
                 render(dateData);
-            } else if (nowMm > 12 || nowYy > yy) {
+            } else if (nowMm === 13 || nowYy > yy) {
                 //jump to next year
                 let date;
                 if (nowMm == 13) {
@@ -163,47 +165,46 @@ function changeMonth(e) {
             render(dateData);
         }
     }
-    displayRange();
 
     //picker date 
-    if (picker >= dd && nowMm == mm) {
+
+    if (e.target.className == "dateitem picker") {
         pickerData = {
             yy: nowYy,
             mm: nowMm,
             dd: e.target.textContent,
-            dom: e.target
         };
-        if (pickerSE.length < 2) {
-            pickerSE.push(pickerData);
-        } else if (pickerSE.length > 1) {
-            pickerSE = [];
-            pickerSE.push(pickerData);
+        if (pickerboxs.length < 2) {
+            pickerboxs.push(pickerData);
+        } else if (pickerboxs.length == 2) {
+            pickerboxs = [];
+            pickerboxs.push(pickerData);
         }
-    } else if (nowMm <= caculatorLimit.ml && e.target.className == "dateitem picker") {
+    } else if (e.target.className == "dateitem picker picker_between" || e.target.className == "dateitem picker today"){
         pickerData = {
             yy: nowYy,
             mm: nowMm,
             dd: e.target.textContent,
-            dom: e.target
         };
-        if (pickerSE.length < 2) {
-            pickerSE.push(pickerData);
-        } else if (pickerSE.length > 1) {
-            pickerSE = [];
-            pickerSE.push(pickerData);
+        if (pickerboxs.length < 2) {
+            pickerboxs.push(pickerData);
+        } else if (pickerboxs.length == 2) {
+            pickerboxs = [];
+            pickerboxs.push(pickerData);
         }
-    };
+    }
+    console.log(pickerboxs)
     pickerRender();
 };
 
-//date display : choose range
+//date display : display chosen range
 function displayRange() {
     let nowYy = parseInt(document.querySelector(".datehead p").textContent.split("/")[0]);
     let nowMm = parseInt(document.querySelector(".datehead p").textContent.split("/")[1]);
     let pick = document.querySelectorAll(".picker");
     let caculatorLimit = dayLimit();
 
-    pick.forEach((item, index) => {
+    pick.forEach((item) => {
         //marker today 
         if (item.textContent == dd && nowMm == mm) {
             if (nowYy == yy) {
@@ -220,27 +221,55 @@ function displayRange() {
             if (item.textContent > caculatorLimit.dl) {
                 item.classList.add("no-choose");
                 item.classList.remove("picker");
+                //jump to next year	
+            } else if (nowYy > yy && nowMm > caculatorLimit.ml) {
+                item.classList.add("no-choose");
+                item.classList.remove("picker");
             }
-            //jump to next year	
-        } else if (nowYy > caculatorLimit.yl) {
-            item.classList.add("no-choose");
-            item.classList.remove("picker");
         }
     });
 };
 
 //picker days
 function pickerRender() {
+    let currentYy = document.querySelector(".datehead p").textContent.split("/")[0];
+    let currentMm = document.querySelector(".datehead p").textContent.split("/")[1];
     let allPicker = document.querySelectorAll(".picker");
-    pickerSE.forEach((item, index) => {
+    if (pickerboxs.length > 0 && pickerboxs.length < 2) {
         allPicker.forEach(item => {
             item.classList.remove("picker_item");
+            item.classList.remove("picker_between");
+            if (item.textContent == pickerboxs[0].dd) {
+                if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
+                    item.classList.add("picker_item");
+                }
+            }
         });
-        pickerSE[0].dom.classList.add("picker_item");
-        if (pickerSE.length > 1) {
-            pickerSE[1].dom.classList.add("picker_item");
-        }
-    });
+    } else if (pickerboxs.length == 2) {
+        allPicker.forEach(item => {
+            item.classList.remove("picker_item");
+            if (item.textContent == pickerboxs[0].dd) {
+                if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
+                    item.classList.add("picker_item");
+                }
+            } else if (item.textContent == pickerboxs[1].dd) {
+                if (pickerboxs[1].yy == currentYy && pickerboxs[1].mm == currentMm) {
+                    item.classList.add("picker_item");
+                }
+            } else if (item.textContent > pickerboxs[0].dd && item.textContent < pickerboxs[1].dd){
+                console.log(item)
+                if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
+                    item.classList.add("picker_between");
+                    console.log(item)
+                }
+
+            } else if (item.textContent < pickerboxs[0].dd && item.textContent > pickerboxs[1].dd) {
+                if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
+                    item.classList.add("picker_between");
+                }
+            }
+        });
+    }
 };
 
 //caculator date : find out the day after 90 days
