@@ -6,6 +6,8 @@ const mm = today.getMonth() + 1;
 const dd = today.getDate();
 let pickerboxs = [];
 let pickerData = {};
+let dateStart = "";
+let dateEnd = "";
 const dateData = caculatorDate(setDate);
 render(dateData);
 displayRange();
@@ -167,12 +169,11 @@ function changeMonth(e) {
     }
 
     //picker date 
-
     if (e.target.className == "dateitem picker") {
         pickerData = {
             yy: nowYy,
             mm: nowMm,
-            dd: e.target.textContent,
+            dd: parseInt(e.target.textContent),
         };
         if (pickerboxs.length < 2) {
             pickerboxs.push(pickerData);
@@ -180,11 +181,11 @@ function changeMonth(e) {
             pickerboxs = [];
             pickerboxs.push(pickerData);
         }
-    } else if (e.target.className == "dateitem picker picker_between" || e.target.className == "dateitem picker today"){
+    } else if (e.target.className == "dateitem picker picker_between" || e.target.className == "dateitem picker today") {
         pickerData = {
             yy: nowYy,
             mm: nowMm,
-            dd: e.target.textContent,
+            dd: parseInt(e.target.textContent),
         };
         if (pickerboxs.length < 2) {
             pickerboxs.push(pickerData);
@@ -205,6 +206,11 @@ function displayRange() {
     let caculatorLimit = dayLimit();
 
     pick.forEach((item) => {
+        //no content
+        if (item.textContent == "") {
+            item.classList.add("no-choose");
+            item.classList.remove("picker");
+        }
         //marker today 
         if (item.textContent == dd && nowMm == mm) {
             if (nowYy == yy) {
@@ -235,6 +241,9 @@ function pickerRender() {
     let currentYy = document.querySelector(".datehead p").textContent.split("/")[0];
     let currentMm = document.querySelector(".datehead p").textContent.split("/")[1];
     let allPicker = document.querySelectorAll(".picker");
+    let dateRange = daysBetween() - 1;
+
+    //picker start/end
     if (pickerboxs.length > 0 && pickerboxs.length < 2) {
         allPicker.forEach(item => {
             item.classList.remove("picker_item");
@@ -246,29 +255,132 @@ function pickerRender() {
             }
         });
     } else if (pickerboxs.length == 2) {
-        allPicker.forEach(item => {
+        allPicker.forEach((item, index) => {
             item.classList.remove("picker_item");
             if (item.textContent == pickerboxs[0].dd) {
                 if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
                     item.classList.add("picker_item");
+                    //same year
+                    if (pickerboxs[0].yy == pickerboxs[1].yy) {
+                        console.log(index);
+                        if (pickerboxs[0].mm < pickerboxs[1].mm && pickerboxs[0].dd == parseInt(item.textContent)) {
+                            dateStart = index + 1;
+                        } else if (pickerboxs[0].mm > pickerboxs[1].mm && pickerboxs[0].dd == parseInt(item.textContent)) {
+                            dateEnd = index;
+                        } else if (pickerboxs[0].dd < pickerboxs[1].dd) {
+                            dateStart = index + 1;
+                        } else if (pickerboxs[0].dd > pickerboxs[1].dd) {
+                            dateEnd = index;
+                        }
+                        //different year
+                    } else if (pickerboxs[0].yy !== pickerboxs[1].yy) {
+                        if (pickerboxs[0].mm > pickerboxs[1].mm) {
+                            dateStart = index + 1;
+                        } else if (pickerboxs[0].mm < pickerboxs[1].mm) {
+                            dateEnd = index;
+                        }
+                    }
                 }
             } else if (item.textContent == pickerboxs[1].dd) {
                 if (pickerboxs[1].yy == currentYy && pickerboxs[1].mm == currentMm) {
                     item.classList.add("picker_item");
-                }
-            } else if (item.textContent > pickerboxs[0].dd && item.textContent < pickerboxs[1].dd){
-                console.log(item)
-                if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
-                    item.classList.add("picker_between");
-                    console.log(item)
-                }
-
-            } else if (item.textContent < pickerboxs[0].dd && item.textContent > pickerboxs[1].dd) {
-                if (pickerboxs[0].yy == currentYy && pickerboxs[0].mm == currentMm) {
-                    item.classList.add("picker_between");
+                    //same year
+                    if (pickerboxs[0].yy == pickerboxs[1].yy) {
+                        if (pickerboxs[0].mm < pickerboxs[1].mm && pickerboxs[1].dd == parseInt(item.textContent)) {
+                            dateEnd = index;
+                        } else if (pickerboxs[0].mm > pickerboxs[1].mm && pickerboxs[1].dd == parseInt(item.textContent)) {
+                            console.log("OOOOO")
+                            dateStart = index + 1;
+                        } else if (pickerboxs[0].dd < pickerboxs[1].dd) {
+                            dateEnd = index;
+                        } else if (pickerboxs[0].dd > pickerboxs[1].dd) {
+                            dateStart = index + 1;
+                        }
+                        //different year
+                    } else if (pickerboxs[0].yy !== pickerboxs[1].yy) {
+                        if (pickerboxs[0].mm > pickerboxs[1].mm) {
+                            dateEnd = index;
+                        } else if (pickerboxs[0].mm < pickerboxs[1].mm) {
+                            dateStart = index + 1;
+                        }
+                    }
                 }
             }
         });
+    };
+    console.log("START:" + dateStart, dateRange, "END:" + dateEnd);
+
+    //picker between 
+    if (pickerboxs.length == 2) {
+        //same year
+        if (pickerboxs[0].yy == pickerboxs[1].yy) {
+            if (pickerboxs[0].mm == pickerboxs[1].mm) {
+                if (currentMm == pickerboxs[0].mm || currentMm == pickerboxs[1].mm) {
+                    for (let i = dateStart; i < dateEnd; i++) {
+                        allPicker[i].classList.add("picker_between");
+                    }
+                }
+            } else if (pickerboxs[0].mm !== pickerboxs[1].mm) {
+                if (currentMm == pickerboxs[0].mm) {
+                    if (pickerboxs[0].mm < pickerboxs[1].mm) {
+                        for (let i = dateStart; i < allPicker.length; i++) {
+                            allPicker[i].classList.add("picker_between");
+                        }
+                    } else if (pickerboxs[0].mm > pickerboxs[1].mm) {
+                        for (let i = 0; i < dateEnd; i++) {
+                            allPicker[i].classList.add("picker_between");
+                        }
+                    }
+                } else if (currentMm == pickerboxs[1].mm) {
+                    if (pickerboxs[0].mm < pickerboxs[1].mm) {
+                        for (let i = 0; i < dateEnd; i++) {
+                            allPicker[i].classList.add("picker_between");
+                        }
+                    } else if (pickerboxs[0].mm > pickerboxs[1].mm) {
+                        for (let i = dateStart; i < allPicker.length; i++) {
+                            allPicker[i].classList.add("picker_between");
+                        }
+                    }
+                }
+            }
+            //more than 1 month
+            if (((pickerboxs[0].mm) - (pickerboxs[1].mm)) > 1 || ((pickerboxs[1].mm) - (pickerboxs[0].mm)) > 1) {
+                if(currentMm > pickerboxs[0].mm && currentMm < pickerboxs[1].mm){
+                    allPicker.forEach(item => { item.classList.add("picker_between") })
+                } else if (currentMm > pickerboxs[1].mm && currentMm < pickerboxs[0].mm){
+                    allPicker.forEach(item => { item.classList.add("picker_between") })
+                }
+            }
+            //different year
+        } else if (pickerboxs[0].yy !== pickerboxs[1].yy) {
+            if (currentMm == pickerboxs[0].mm) {
+                if (pickerboxs[0].mm > pickerboxs[1].mm) {
+                    for (let i = dateStart; i < allPicker.length; i++) {
+                        allPicker[i].classList.add("picker_between");
+                    }
+                } else if (pickerboxs[0].mm < pickerboxs[1].mm) {
+                    for (let i = 0; i < dateEnd; i++) {
+                        allPicker[i].classList.add("picker_between");
+                    }
+                }
+            } else if (currentMm == pickerboxs[1].mm) {
+                if (pickerboxs[0].mm > pickerboxs[1].mm) {
+                    for (let i = 0; i < dateEnd; i++) {
+                        allPicker[i].classList.add("picker_between");
+                    }
+                } else if (pickerboxs[0].mm < pickerboxs[1].mm) {
+                    for (let i = dateStart; i < allPicker.length; i++) {
+                        allPicker[i].classList.add("picker_between");
+                    }
+                }
+            }
+            //more than 1 month
+            if (currentMm > pickerboxs[0].mm && currentMm > pickerboxs[1].mm){
+                allPicker.forEach(item => { item.classList.add("picker_between") })
+            } else if (currentMm > pickerboxs[1].mm && currentMm > pickerboxs[0].mm){
+                allPicker.forEach(item => { item.classList.add("picker_between") })
+            }
+        }
     }
 };
 
@@ -284,6 +396,19 @@ function dayLimit() {
     return dayObject
 };
 
+function daysBetween() {
+    let days = "";
+    if (pickerboxs.length == 2) {
+        let chosenOne = new Date(pickerboxs[0].yy, (pickerboxs[0].mm) - 1, pickerboxs[0].dd);
+        let chosenTwo = new Date(pickerboxs[1].yy, (pickerboxs[1].mm) - 1, pickerboxs[1].dd);
+        if (chosenTwo > chosenOne) {
+            days = (chosenTwo - chosenOne) / (1000 * 60 * 60 * 24);
+        } else if (chosenTwo < chosenOne) {
+            days = (chosenOne - chosenTwo) / (1000 * 60 * 60 * 24);
+        }
+    }
+    return days
+}
 
 //addEventListener
 dateRender.addEventListener("click", changeMonth);
