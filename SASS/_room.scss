@@ -311,7 +311,7 @@
 
         .picker_item {
             color           : rgb(50, 60, 80);
-            background-color: rgb(220, 240, 250);
+            background-color: rgb(210, 230, 250);
             border          : 1px solid transparent;
         }
 
@@ -360,6 +360,10 @@
         width     : 100%;
         margin-top: 40px;
     }
+}
+
+.booking_info{
+    display: none;
 }
 
 /* room */
