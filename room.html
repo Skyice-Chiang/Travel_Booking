@@ -93,12 +93,8 @@
             </div>
             <div class="calendar_area">
                 <div class="datepicker">
-                    <!-- 	<div class="datehead"></div>
-                        <div class="datebody">
-                            <div class="datebox"></div>
-                        </div> -->
                 </div>
-                <button class="reserve">Reserve</button>
+                <button class="reserve" onclick="reserve()">Reserve</button>
             </div>
         </div>
     </div>
@@ -118,9 +114,15 @@
                 <div class="form_item">
                     <label for="date-in">Check time</label>
                     <div class="input_group">
-                        <input class="form_style form_sm" type="text" id="date-in" name="date-in">
+                        <div class="check_time">
+                            <input class="form_style form_sm" type="text" id="date-in" name="date-in">
+                            <div class="datepicker_sm"></div>
+                        </div>
                         <span>～</span>
-                        <input class="form_style form_sm" type="text" id="date-out" name="date-out">
+                        <div class="check_time">
+                            <input class="form_style form_sm" type="text" id="date-out" name="date-out" onfocus="displayCalendar()">
+                            <div class="datepicker_sm"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,7 +139,7 @@
             <div class="costing">
                 <h3>＝ NT.<span></span></h3>
                 <div class="btn_group">
-                    <button class="btn cancel">Cancel</button>
+                    <button class="btn cancel" onclick="cancel()">Cancel</button>
                     <button class="btn sure">Reseve</button>
                 </div>
             </div>

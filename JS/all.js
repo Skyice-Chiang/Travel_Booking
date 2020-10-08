@@ -150,3 +150,19 @@ function lightboxOption() {
         "fadeDuration": 600,
     })
 }
+
+//reserve rooms
+function reserve(){
+    document.querySelector(".booking_view").classList.add("active");
+    document.querySelector(".booking_info").classList.add("active");
+}
+
+//cancel reserve
+function cancel(){
+    document.querySelector(".booking_view").classList.remove("active");
+    document.querySelector(".booking_info").classList.remove("active");
+}
+
+//display small calendar
+function displayCalendar(){
+}

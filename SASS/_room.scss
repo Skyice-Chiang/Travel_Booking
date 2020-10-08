@@ -371,6 +371,13 @@
     bottom: -60px;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+    &.active{
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .booking_info{
@@ -379,10 +386,13 @@
     width: 420px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-40%);
+    transform: translate(-50%,-70%);
     background-color: #FFF;
+    opacity: 0;
+    transition: all 1s;
     &.active{
         transform: translate(-50%,-50%);
+        opacity: 1;
     }
 }
 
@@ -421,17 +431,25 @@
             box-shadow: 0px 0px 5px 5px rgba(180, 219, 255, 0.5);
         }
     }
-    .form_sm{
-        width: 44.4444%;
-        // margin: 0 4px;
-        // &:last-child{
-        //     margin: 0 0 0 4px;
-        // }
-    }
     .input_group{
         width: 243px;
+        .check_time{
+            display: inline-block;
+            width: 44.44444%;
+            .form_style{
+                position: relative;
+                width: 100%;
+                .datepicker_sm{
+                    bottom: -10px;
+                    position: absolute;
+                }
+            }
+        }
     }
 }
+
+
+
 
 .days{
     padding: 15px 42px;
@@ -465,7 +483,7 @@
             transition: all 0.3s;
             &:hover{
                 cursor: pointer;
-                transform: scale(1.2);
+                transform: scale(1.05);
             }
         }
         .cancel{
