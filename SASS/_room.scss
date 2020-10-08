@@ -81,7 +81,6 @@
 }
 
 @include phone {
-
     .image_left,
     .image_right {
         height: 298px;
@@ -366,7 +365,8 @@
 
 .booking_view{
     position: absolute;
-    width: 100%;
+    left: 0;
+    right: 0;
     top: 0;
     bottom: -60px;
     z-index: 2;
@@ -396,6 +396,15 @@
     }
 }
 
+@include phone{
+    .booking_view{
+        bottom: 0;
+    }
+    .booking_info{
+        width: 90%;
+    }
+}
+
 .user_booking{
     margin-bottom: 30px;
     padding: 0 42px;
@@ -407,6 +416,12 @@
     p{
         font-size: 9px;
         margin-bottom: 30px;
+    }
+}
+
+@include phone {
+    .user_booking{
+        padding: 0 20px;
     }
 }
 
@@ -448,7 +463,23 @@
     }
 }
 
-
+@include phone {
+    .form_item{
+        flex-direction: column;
+        align-items: flex-start;
+        label{
+            margin-bottom: 10px;
+        }
+        .form_style{
+            width: 100%;
+            line-height: 44px;
+            font-size: 20px;
+        }
+        .input_group{
+            width: 100%;
+        }
+    }
+}
 
 
 .days{
@@ -460,6 +491,11 @@
         align-items: center;
         font-size: 14px;
         line-height: 1.5;
+    }
+}
+@include phone{
+    .days{
+        padding: 15px 20px;
     }
 }
 
@@ -501,5 +537,16 @@
             }
         }
     }
+    @include phone{
+        .btn_group{
+            flex-direction: column-reverse;
+            .btn{
+                width: 100%;
+                padding: 20px 24px;
+                margin-bottom: 20px;
+            }
+        }
+    }
 }
+
 /* room */

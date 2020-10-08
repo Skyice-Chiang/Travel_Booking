@@ -165,4 +165,5 @@ function cancel(){
 
 //display small calendar
 function displayCalendar(){
+    
 }

@@ -642,7 +642,8 @@ body {
 
 .booking_view {
   position: absolute;
-  width: 100%;
+  left: 0;
+  right: 0;
   top: 0;
   bottom: -60px;
   z-index: 2;
@@ -674,6 +675,15 @@ body {
   opacity: 1;
 }
 
+@media (max-width: 420px) {
+  .booking_view {
+    bottom: 0;
+  }
+  .booking_info {
+    width: 90%;
+  }
+}
+
 .user_booking {
   margin-bottom: 30px;
   padding: 0 42px;
@@ -688,6 +698,12 @@ body {
 .user_booking p {
   font-size: 9px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 420px) {
+  .user_booking {
+    padding: 0 20px;
+  }
 }
 
 .form_item {
@@ -735,6 +751,24 @@ body {
   position: absolute;
 }
 
+@media (max-width: 420px) {
+  .form_item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .form_item label {
+    margin-bottom: 10px;
+  }
+  .form_item .form_style {
+    width: 100%;
+    line-height: 44px;
+    font-size: 20px;
+  }
+  .form_item .input_group {
+    width: 100%;
+  }
+}
+
 .days {
   padding: 15px 42px;
   background: #EDEDED;
@@ -746,6 +780,12 @@ body {
   align-items: center;
   font-size: 14px;
   line-height: 1.5;
+}
+
+@media (max-width: 420px) {
+  .days {
+    padding: 15px 20px;
+  }
 }
 
 .costing {
@@ -794,6 +834,17 @@ body {
 
 .costing .btn_group .sure:active {
   transform: scale(0.9);
+}
+
+@media (max-width: 420px) {
+  .costing .btn_group {
+    flex-direction: column-reverse;
+  }
+  .costing .btn_group .btn {
+    width: 100%;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
 }
 
 /* room */
