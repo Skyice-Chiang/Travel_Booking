@@ -640,8 +640,138 @@ body {
   }
 }
 
+.booking_view {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: -60px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 .booking_info {
-  display: none;
+  position: absolute;
+  padding: 30px 0;
+  width: 420px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  background-color: #FFF;
+}
+
+.booking_info.active {
+  transform: translate(-50%, -50%);
+}
+
+.user_booking {
+  margin-bottom: 30px;
+  padding: 0 42px;
+}
+
+.user_booking h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.user_booking p {
+  font-size: 9px;
+  margin-bottom: 30px;
+}
+
+.form_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form_item label {
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.form_item .form_style {
+  width: 243px;
+  line-height: 32px;
+  padding-left: 16px;
+  border: 1px solid #C9C9C9;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form_item .form_style:focus {
+  box-shadow: 0px 0px 5px 5px rgba(180, 219, 255, 0.5);
+}
+
+.form_item .form_sm {
+  width: 44.4444%;
+}
+
+.form_item .input_group {
+  width: 243px;
+}
+
+.days {
+  padding: 15px 42px;
+  background: #EDEDED;
+}
+
+.days .days_text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.costing {
+  padding: 8px 42px 0;
+}
+
+.costing h3 {
+  text-align: right;
+  font-size: 26px;
+  font-weight: bold;
+  color: #FF5C5C;
+}
+
+.costing .btn_group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.costing .btn_group .btn {
+  padding: 10px 24px;
+  outline: none;
+  border: none;
+  transition: all 0.3s;
+}
+
+.costing .btn_group .btn:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.costing .btn_group .cancel {
+  background: #D8D8D8;
+  color: #6D7278;
+}
+
+.costing .btn_group .cancel:active {
+  transform: scale(0.9);
+}
+
+.costing .btn_group .sure {
+  background: #484848;
+  color: #FFF;
+}
+
+.costing .btn_group .sure:active {
+  transform: scale(0.9);
 }
 
 /* room */
