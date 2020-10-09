@@ -154,12 +154,14 @@ function lightboxOption() {
 //reserve rooms
 function reserve(){
     window.scrollTo(0,356);
+    document.querySelector("body").classList.add("active");
     document.querySelector(".booking_view").classList.add("active");
     document.querySelector(".booking_info").classList.add("active");
 }
 
 //cancel reserve
 function cancel(){
+    document.querySelector("body").classList.remove("active");
     document.querySelector(".booking_view").classList.remove("active");
     document.querySelector(".booking_info").classList.remove("active");
 }
