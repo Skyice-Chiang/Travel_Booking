@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="calendar_area">
-                <div class="datepicker">
+                <div class="datepicker" id="calendar_lg">
                 </div>
                 <button class="reserve" onclick="reserve()">Reserve</button>
             </div>
@@ -101,7 +101,7 @@
             <div class="booking_info">
                 <div class="user_booking">
                     <h2>Reserve Time</h2>
-                    <p>＼＼＼</p>
+                    <p class="line">＼＼＼</p>
                     <div class="form_item">
                         <label for="username">Name</label>
                         <input class="form_style" type="text" id="username" name="username">
@@ -112,16 +112,11 @@
                     </div>
                     <div class="form_item">
                         <label for="date-in">Check time</label>
-                        <div class="input_group">
-                            <div class="check_time">
-                                <input class="form_style form_sm" type="text" id="date-in" name="date-in">
-                                <div class="datepicker_sm"></div>
-                            </div>
+                        <div class="input_group" onblur="closeCalendar()">
+                            <input class="form_style form_sm" type="text" id="date-in" name="date-in">
                             <span>～</span>
-                            <div class="check_time">
-                                <input class="form_style form_sm" type="text" id="date-out" name="date-out" onfocus="displayCalendar()">
-                                <div class="datepicker_sm"></div>
-                            </div>
+                            <input class="form_style form_sm" type="text" id="date-out" name="date-out">
+                            <div class="datepicker datepicker_sm"></div>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-const dateRender = document.querySelector(".datepicker");
+const dateRender = document.querySelector("#calendar_lg");
 const today = new Date();
 const setDate = new Date(today.getFullYear(), today.getMonth(), 1);
 const yy = today.getFullYear();
@@ -45,6 +45,13 @@ function render(dateData) {
     dateRender.innerHTML = calendar;
     displayRange();
     pickerRender();
+
+    //reserve small datepicker
+    if (document.querySelector(".booking_view").classList[1] == "active"){
+        document.querySelector(".datepicker_sm").innerHTML = calendar;
+        console.log("a")
+        displayRange();
+    }
 };
 
 //get month total days
@@ -119,10 +126,8 @@ function weekdaysStr(totalDay) {
 //change month
 function changeMonth(e) {
     e.preventDefault();
-    console.log(e.target);
     let nowYy = parseInt(document.querySelector(".datehead p").textContent.split("/")[0]);
     let nowMm = parseInt(document.querySelector(".datehead p").textContent.split("/")[1]);
-    let picker = e.target.textContent;
     let caculatorLimit = dayLimit();
     let dateData;
 
@@ -168,34 +173,9 @@ function changeMonth(e) {
         }
     }
 
-    //picker date 
-    if (e.target.className == "dateitem picker") {
-        pickerData = {
-            yy: nowYy,
-            mm: nowMm,
-            dd: parseInt(e.target.textContent),
-        };
-        if (pickerboxs.length < 2) {
-            pickerboxs.push(pickerData);
-        } else if (pickerboxs.length == 2) {
-            pickerboxs = [];
-            pickerboxs.push(pickerData);
-        }
-    } else if (e.target.className == "dateitem picker picker_between" || e.target.className == "dateitem picker today") {
-        pickerData = {
-            yy: nowYy,
-            mm: nowMm,
-            dd: parseInt(e.target.textContent),
-        };
-        if (pickerboxs.length < 2) {
-            pickerboxs.push(pickerData);
-        } else if (pickerboxs.length == 2) {
-            pickerboxs = [];
-            pickerboxs.push(pickerData);
-        }
-    }
-    console.log(pickerboxs)
-    pickerRender();
+    if(document.querySelector(".datepicker_sm").classList[2] !== "active"){
+        pickerRender();
+    }    
 };
 
 //date display : display chosen range
@@ -236,7 +216,42 @@ function displayRange() {
     });
 };
 
-//picker days
+//put picker days' data 
+function putPickerData(e){
+    let nowYy = parseInt(document.querySelector(".datehead p").textContent.split("/")[0]);
+    let nowMm = parseInt(document.querySelector(".datehead p").textContent.split("/")[1]);
+    let picker = e.target.textContent;
+    e.preventDefault();
+    //picker date 
+    if (e.target.className == "dateitem picker") {
+        pickerData = {
+            yy: nowYy,
+            mm: nowMm,
+            dd: parseInt(picker),
+        };
+        if (pickerboxs.length < 2) {
+            pickerboxs.push(pickerData);
+        } else if (pickerboxs.length == 2) {
+            pickerboxs = [];
+            pickerboxs.push(pickerData);
+        }
+    } else if (e.target.className == "dateitem picker picker_between" || e.target.className == "dateitem picker today") {
+        pickerData = {
+            yy: nowYy,
+            mm: nowMm,
+            dd: parseInt(picker),
+        };
+        if (pickerboxs.length < 2) {
+            pickerboxs.push(pickerData);
+        } else if (pickerboxs.length == 2) {
+            pickerboxs = [];
+            pickerboxs.push(pickerData);
+        }
+    }
+    pickerRender();
+}
+
+//render picker days
 function pickerRender() {
     let currentYy = document.querySelector(".datehead p").textContent.split("/")[0];
     let currentMm = document.querySelector(".datehead p").textContent.split("/")[1];
@@ -289,7 +304,6 @@ function pickerRender() {
                         if (pickerboxs[0].mm < pickerboxs[1].mm && pickerboxs[1].dd == parseInt(item.textContent)) {
                             dateEnd = index;
                         } else if (pickerboxs[0].mm > pickerboxs[1].mm && pickerboxs[1].dd == parseInt(item.textContent)) {
-                            console.log("OOOOO")
                             dateStart = index + 1;
                         } else if (pickerboxs[0].dd < pickerboxs[1].dd) {
                             dateEnd = index;
@@ -396,6 +410,7 @@ function dayLimit() {
     return dayObject
 };
 
+//how many days
 function daysBetween() {
     let days = "";
     if (pickerboxs.length == 2) {
@@ -410,5 +425,14 @@ function daysBetween() {
     return days
 }
 
+//put date data to postData  ex: ["2020-10-10",]
+function putIn(){
+    if(pickerboxs.length == 2){
+        
+    }
+}
+
 //addEventListener
 dateRender.addEventListener("click", changeMonth);
+dateRender.addEventListener("click",putPickerData);
+document.querySelector(".datepicker_sm").addEventListener("click", changeMonth);

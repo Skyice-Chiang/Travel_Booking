@@ -315,7 +315,7 @@
         }
 
         .picker_between {
-            background-color: rgba(220, 240, 250, 0.5);
+            background-color: rgb(213, 232, 241);
         }
     }
 
@@ -329,7 +329,6 @@
         display: none;
     }
 }
-
 
 .reserve {
     letter-spacing  : 2px;
@@ -372,11 +371,8 @@
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.7);
     visibility: hidden;
-    opacity: 0;
-    transition: all 0.5s;
     &.active{
         visibility: visible;
-        opacity: 1;
     }
 }
 
@@ -413,7 +409,7 @@
         font-weight: bold;
         margin-bottom: 12px;
     }
-    p{
+    .line{
         font-size: 9px;
         margin-bottom: 30px;
     }
@@ -448,18 +444,26 @@
     }
     .input_group{
         width: 243px;
-        .check_time{
-            display: inline-block;
-            width: 44.44444%;
+        position: relative;
             .form_style{
-                position: relative;
-                width: 100%;
-                .datepicker_sm{
-                    bottom: -10px;
-                    position: absolute;
-                }
+                width: 44.44444%;
             }
-        }
+    }
+}
+
+.datepicker_sm {
+    display: block;
+    visibility: hidden;
+    position : absolute;
+    top   : 0;
+    left     : -70px;
+    z-index  : 3;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: opacity 0.3s;
+    &.active{
+        visibility: visible;
+        opacity: 1;
     }
 }
 

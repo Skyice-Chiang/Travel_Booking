@@ -12,6 +12,11 @@ const url = "https://challenge.thef2e.com/api/thef2e2019/stage6/";
 const token = "KoqHbASiNrESC9A14y7BEp1dMUyfGk8o4rtlzn0Kdp9l2iFn3w99hZext0Dj";
 const roomData = [];
 const singleRoom = [];
+const postData = {
+    name: "",
+    tel: "",
+    date: []
+}
 getData();
 
 //Ajax
@@ -151,22 +156,40 @@ function lightboxOption() {
     })
 }
 
-//reserve rooms
-function reserve(){
-    window.scrollTo(0,356);
+//reserve rooms frame
+function reserve() {
+    window.scrollTo(0, 356);
     document.querySelector("body").classList.add("active");
     document.querySelector(".booking_view").classList.add("active");
     document.querySelector(".booking_info").classList.add("active");
+    render(dateData);
 }
 
-//cancel reserve
-function cancel(){
+//cancel reserve frame
+function cancel() {
     document.querySelector("body").classList.remove("active");
     document.querySelector(".booking_view").classList.remove("active");
     document.querySelector(".booking_info").classList.remove("active");
+    document.querySelector(".datepicker_sm").innerHTML = "";
+    document.querySelectorAll(".picker").forEach(item=>{
+        item.classList.remove("picker_item");
+        item.classList.remove("picker_between");
+    });
 }
 
 //display small calendar
-function displayCalendar(){
-    
+function displayCalendar(e) {
+    if (e.target.nodeName == "INPUT") {
+        document.querySelector(".datepicker_sm").classList.add("active");
+    }
 }
+//close small calendar
+function closeCalendar(e) {
+    if (e.target.classList[1] == "picker" || e.target.classList[0] == "booking_view") {
+        document.querySelector(".datepicker_sm").classList.remove("active");
+    }
+}
+
+//addEventListener
+document.querySelector(".input_group").addEventListener("click", displayCalendar);
+window.addEventListener("click", closeCalendar);

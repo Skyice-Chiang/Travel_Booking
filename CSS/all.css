@@ -701,7 +701,7 @@ body.active {
   margin-bottom: 12px;
 }
 
-.user_booking p {
+.user_booking .line {
   font-size: 9px;
   margin-bottom: 30px;
 }
@@ -740,21 +740,28 @@ body.active {
 
 .form_item .input_group {
   width: 243px;
+  position: relative;
 }
 
-.form_item .input_group .check_time {
-  display: inline-block;
+.form_item .input_group .form_style {
   width: 44.44444%;
 }
 
-.form_item .input_group .check_time .form_style {
-  position: relative;
-  width: 100%;
+.datepicker_sm {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: -70px;
+  z-index: 3;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.3s;
 }
 
-.form_item .input_group .check_time .form_style .datepicker_sm {
-  bottom: -10px;
-  position: absolute;
+.datepicker_sm.active {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (max-width: 420px) {
