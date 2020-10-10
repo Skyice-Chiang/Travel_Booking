@@ -427,8 +427,14 @@ function daysBetween() {
 
 //put date data to postData  ex: ["2020-10-10",]
 function putIn(){
+    let dayTotal = daysBetween();
     if(pickerboxs.length == 2){
-        
+        if(pickerboxs[0].mm == pickerboxs[1].mm && pickerboxs[0].dd < pickerboxs[1].dd){
+            for (let i = pickerboxs[0].dd; i < pickerboxs[1].dd+1; i++){
+                let dateStr = `${pickerboxs[0].yy}-${pickerboxs[0].mm}-${i}`
+                postData.date.push(dateStr);
+            }
+        }
     }
 }
 
