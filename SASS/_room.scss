@@ -367,12 +367,15 @@
     left: 0;
     right: 0;
     top: 0;
-    bottom: -60px;
+    bottom: 0;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.7);
     visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
     &.active{
         visibility: visible;
+        opacity: 1;
     }
 }
 
@@ -482,6 +485,10 @@
         .input_group{
             width: 100%;
         }
+    }
+    .datepicker_sm{
+        left: -42px;
+        top: 10px;
     }
 }
 

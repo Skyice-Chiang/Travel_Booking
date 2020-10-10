@@ -603,7 +603,7 @@ body.active {
 }
 
 .datepicker .datebox .picker_between {
-  background-color: rgba(220, 240, 250, 0.5);
+  background-color: #d5e8f1;
 }
 
 .datepicker .datebox:last-child {
@@ -651,7 +651,7 @@ body.active {
   left: 0;
   right: 0;
   top: 0;
-  bottom: -60px;
+  bottom: 0;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.7);
   visibility: hidden;
@@ -756,7 +756,7 @@ body.active {
   z-index: 3;
   transform: scale(0.8);
   opacity: 0;
-  transition: all 0.3s;
+  transition: opacity 0.3s;
 }
 
 .datepicker_sm.active {
@@ -779,6 +779,10 @@ body.active {
   }
   .form_item .input_group {
     width: 100%;
+  }
+  .datepicker_sm {
+    left: -42px;
+    top: 10px;
   }
 }
 
