@@ -6,6 +6,7 @@ const mm = today.getMonth() + 1;
 const dd = today.getDate();
 let pickerboxs = [];
 let pickerData = {};
+let judgeDayData = [];
 let dateStart = "";
 let dateEnd = "";
 const dateData = caculatorDate(setDate);
@@ -47,9 +48,8 @@ function render(dateData) {
     pickerRender();
 
     //reserve small datepicker
-    if (document.querySelector(".booking_view").classList[1] == "active"){
+    if (document.querySelector(".booking_view").classList[1] == "active") {
         document.querySelector(".datepicker_sm").innerHTML = calendar;
-        console.log("a")
         displayRange();
     }
 };
@@ -173,9 +173,9 @@ function changeMonth(e) {
         }
     }
 
-    if(document.querySelector(".datepicker_sm").classList[2] !== "active"){
+    if (document.querySelector(".datepicker_sm").classList[2] !== "active") {
         pickerRender();
-    }    
+    }
 };
 
 //date display : display chosen range
@@ -217,7 +217,7 @@ function displayRange() {
 };
 
 //put picker days' data 
-function putPickerData(e){
+function putPickerData(e) {
     let nowYy = parseInt(document.querySelector(".datehead p").textContent.split("/")[0]);
     let nowMm = parseInt(document.querySelector(".datehead p").textContent.split("/")[1]);
     let picker = e.target.textContent;
@@ -359,9 +359,9 @@ function pickerRender() {
             }
             //more than 1 month
             if (((pickerboxs[0].mm) - (pickerboxs[1].mm)) > 1 || ((pickerboxs[1].mm) - (pickerboxs[0].mm)) > 1) {
-                if(currentMm > pickerboxs[0].mm && currentMm < pickerboxs[1].mm){
+                if (currentMm > pickerboxs[0].mm && currentMm < pickerboxs[1].mm) {
                     allPicker.forEach(item => { item.classList.add("picker_between") })
-                } else if (currentMm > pickerboxs[1].mm && currentMm < pickerboxs[0].mm){
+                } else if (currentMm > pickerboxs[1].mm && currentMm < pickerboxs[0].mm) {
                     allPicker.forEach(item => { item.classList.add("picker_between") })
                 }
             }
@@ -389,9 +389,9 @@ function pickerRender() {
                 }
             }
             //more than 1 month
-            if (currentMm > pickerboxs[0].mm && currentMm > pickerboxs[1].mm){
+            if (currentMm > pickerboxs[0].mm && currentMm > pickerboxs[1].mm) {
                 allPicker.forEach(item => { item.classList.add("picker_between") })
-            } else if (currentMm > pickerboxs[1].mm && currentMm > pickerboxs[0].mm){
+            } else if (currentMm > pickerboxs[1].mm && currentMm > pickerboxs[0].mm) {
                 allPicker.forEach(item => { item.classList.add("picker_between") })
             }
         }
@@ -414,31 +414,124 @@ function dayLimit() {
 function daysBetween() {
     let days = "";
     if (pickerboxs.length == 2) {
+        pickerboxs.sort((a, b) => { return (new Date(a.yy, a.mm - 1, a.dd)) - (new Date(b.yy, b.mm - 1, b.dd)) });
         let chosenOne = new Date(pickerboxs[0].yy, (pickerboxs[0].mm) - 1, pickerboxs[0].dd);
         let chosenTwo = new Date(pickerboxs[1].yy, (pickerboxs[1].mm) - 1, pickerboxs[1].dd);
-        if (chosenTwo > chosenOne) {
-            days = (chosenTwo - chosenOne) / (1000 * 60 * 60 * 24);
-        } else if (chosenTwo < chosenOne) {
-            days = (chosenOne - chosenTwo) / (1000 * 60 * 60 * 24);
-        }
+        days = (chosenTwo - chosenOne) / (1000 * 60 * 60 * 24);
     }
     return days
 }
 
-//put date data to postData  ex: ["2020-10-10",]
-function putIn(){
+//put date data to bookingData  ex: ["2020-10-10",]
+function putIn() {
+    bookingData.date = [];
+    judgeDayData = [];
     let dayTotal = daysBetween();
-    if(pickerboxs.length == 2){
-        if(pickerboxs[0].mm == pickerboxs[1].mm && pickerboxs[0].dd < pickerboxs[1].dd){
-            for (let i = pickerboxs[0].dd; i < pickerboxs[1].dd+1; i++){
-                let dateStr = `${pickerboxs[0].yy}-${pickerboxs[0].mm}-${i}`
-                postData.date.push(dateStr);
+    if (pickerboxs.length == 2) {
+        pickerboxs.sort((a, b) => { return (new Date(a.yy, a.mm - 1, a.dd)) - (new Date(b.yy, b.mm - 1, b.dd)) });
+        for (let i = pickerboxs[0].dd; i < pickerboxs[0].dd + dayTotal + 1; i++) {
+            let dateStart = new Date(pickerboxs[0].yy, (pickerboxs[0].mm) - 1, i);
+            let dateStr = "";
+            if (dateStart.getMonth() < 10 && dateStart.getDate() < 10){
+                dateStr = `${dateStart.getFullYear()}-0${((dateStart.getMonth()) + 1)}-0${dateStart.getDate()}`
+            } else if (dateStart.getMonth() > 10 && dateStart.getDate() < 10) {
+                dateStr = `${dateStart.getFullYear()}-${(dateStart.getMonth()) + 1}-0${dateStart.getDate()}`;
+            } else if (dateStart.getMonth() < 10 && dateStart.getDate() >= 10) {
+                dateStr = `${dateStart.getFullYear()}-0${((dateStart.getMonth()) + 1)}-${dateStart.getDate()}`;
+            } else if (dateStart.getMonth() > 10 && dateStart.getDate() >= 10){
+                dateStr = `${dateStart.getFullYear()}-${(dateStart.getMonth()) + 1}-${dateStart.getDate()}`;
             }
+            bookingData.date.push(dateStr);
+            judgeDayData.push(dateStart.getDay());
         }
+        console.log(bookingData.date, judgeDayData);
+    }
+    judgeDate();
+}
+
+//input display booking-date
+function inputDisplay() {
+    pickerboxs.sort((a, b) => { return (new Date(a.yy, a.mm - 1, a.dd)) - (new Date(b.yy, b.mm - 1, b.dd)) });
+    if (pickerboxs.length == 2) {
+        document.querySelector("#date-in").value = `${pickerboxs[0].yy}/${pickerboxs[0].mm}/${pickerboxs[0].dd}`;
+        document.querySelector("#date-out").value = `${pickerboxs[1].yy}/${pickerboxs[1].mm}/${pickerboxs[1].dd}`;
     }
 }
 
+//reverse view picker date
+function reversePicker(e) {
+    let nowYy = parseInt(document.querySelector(".datepicker_sm .datehead p").textContent.split("/")[0]);
+    let nowMm = parseInt(document.querySelector(".datepicker_sm .datehead p").textContent.split("/")[1]);
+    if (e.target.classList[1] == "picker") {
+        let pickerDate = `${nowYy}/${nowMm}/${e.target.textContent}`;
+        if (pickerInput.name == "date-in"){
+            pickerboxs[0] = {
+                yy: nowYy,
+                mm: nowMm,
+                dd: parseInt(e.target.textContent),
+            };
+            pickerInput.value = pickerDate;
+            if(pickerboxs.length == 2){
+                let chosenOne = new Date(pickerboxs[0].yy, (pickerboxs[0].mm) - 1, pickerboxs[0].dd);
+                let chosenTwo = new Date(pickerboxs[1].yy, (pickerboxs[1].mm) - 1, pickerboxs[1].dd);
+                if (chosenOne > chosenTwo) {
+                    pickerboxs[1] = "";
+                    document.querySelector("#date-out").value = "";
+                }
+            }
+        } else if (pickerInput.name == "date-out" && pickerboxs.length >= 1){
+            pickerboxs[1] = {
+                yy: nowYy,
+                mm: nowMm,
+                dd: parseInt(e.target.textContent),
+            };
+            let chosenOne = new Date(pickerboxs[0].yy, (pickerboxs[0].mm) - 1, pickerboxs[0].dd);
+            let chosenTwo = new Date(pickerboxs[1].yy, (pickerboxs[1].mm) - 1, pickerboxs[1].dd);
+            if(chosenTwo > chosenOne){
+                pickerInput.value = pickerDate;
+                document.querySelector(".warning").classList.remove("active");
+                pickerInput.classList.remove("form_err");
+            } else if (chosenTwo < chosenOne){
+                document.querySelector("#date-out").value = "";
+                document.querySelector(".warning").classList.add("active");
+                pickerInput.classList.add("form_err");
+            }
+        }        
+    }
+    putIn();
+}
+
+//judge normalday or holiday
+function judgeDate(){
+    //night number
+    judgeDayData.pop();
+    let normalDay = 0;
+    let holiday = 0;
+    judgeDayData.forEach(item=>{
+        if(item > 4 && item <= 6){
+            holiday++
+        }else if(item >= 0 && item < 5){
+            normalDay++
+        }
+    })
+    console.log(normalDay, holiday);
+    renderCost(normalDay, holiday);
+}
+//render cost 
+function renderCost(normalDay, holiday){
+    let normalCost = parseInt((document.querySelectorAll(".room_price span")[0].textContent).split(".")[1]);
+    let holidayCost = parseInt((document.querySelectorAll(".room_price span")[1].textContent).split(".")[1]);
+    let total = normalCost * normalDay + holidayCost * holiday;
+    document.querySelector(".normal_days").textContent = `${normalDay} 夜`;
+    document.querySelector(".holiday_days").textContent = `${holiday} 夜`;
+    document.querySelector(".costing span").textContent = total;
+    console.log(normalCost, holidayCost, total);
+    
+}
+
+
 //addEventListener
 dateRender.addEventListener("click", changeMonth);
-dateRender.addEventListener("click",putPickerData);
+dateRender.addEventListener("click", putPickerData);
 document.querySelector(".datepicker_sm").addEventListener("click", changeMonth);
+document.querySelector(".datepicker_sm").addEventListener("click", reversePicker);

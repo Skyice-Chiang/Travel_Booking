@@ -315,7 +315,7 @@
         }
 
         .picker_between {
-            background-color: rgb(213, 232, 241);
+            background-color: rgb(229, 238, 241);
         }
     }
 
@@ -444,14 +444,26 @@
         &:focus{
             box-shadow: 0px 0px 5px 5px rgba(180, 219, 255, 0.5);
         }
+        &.form_err{
+        border-color:rgb(255, 0, 0);
+        }
     }
     .input_group{
         width: 243px;
         position: relative;
-            .form_style{
-                width: 44.44444%;
-            }
+        .form_style{
+            width: 44.44444%;
+        }
     }
+}
+.warning{
+    margin-left: 28%;
+    visibility: hidden;
+    font-size: 8px;
+    color: red;
+    &.active{
+        visibility: visible;
+    }    
 }
 
 .datepicker_sm {
@@ -489,6 +501,9 @@
     .datepicker_sm{
         left: -42px;
         top: 10px;
+    }
+    .warning{
+        margin-left: 0;
     }
 }
 
@@ -540,7 +555,7 @@
                 transform: scale(0.9);
             }
         }
-        .sure{
+        .submit{
             background: #484848;
             color: #FFF;
             &:active{

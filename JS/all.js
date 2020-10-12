@@ -12,14 +12,15 @@ const url = "https://challenge.thef2e.com/api/thef2e2019/stage6/";
 const token = "KoqHbASiNrESC9A14y7BEp1dMUyfGk8o4rtlzn0Kdp9l2iFn3w99hZext0Dj";
 const roomData = [];
 const singleRoom = [];
-const postData = {
+let pickerInput = "";
+const bookingData = {
     name: "",
     tel: "",
     date: []
 }
 getData();
 
-//Ajax
+//Ajax Get
 function getData() {
     let netJudge = location.pathname.split("/");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -45,6 +46,16 @@ function getData() {
             .catch(err => { console.log(err) })
     }
 };
+//Ajax Post
+function postData(data){
+    const roomID = location.search.slice(1);
+    localStorage.setItem('data', JSON.stringify(data));
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios.post(`${url}room/${roomID}`, data)
+    .then(res =>console.log(res))
+    .catch(err => console.log(err))
+    console.log(`${url}room/${roomID}`, data)
+}
 
 //loader
 function loaderOut() {
@@ -170,18 +181,22 @@ function cancel() {
     document.querySelector("body").classList.remove("active");
     document.querySelector(".booking_view").classList.remove("active");
     document.querySelector(".booking_info").classList.remove("active");
+    document.querySelector(".datepicker_sm").classList.remove("active");
     document.querySelector(".datepicker_sm").innerHTML = "";
-    document.querySelectorAll(".picker").forEach(item=>{
-        item.classList.remove("picker_item");
-        item.classList.remove("picker_between");
-    });
+    // document.querySelectorAll(".picker").forEach(item=>{
+    //     item.classList.remove("picker_between");
+    //     item.classList.remove("picker_item")
+    // })
+    // pickerboxs = [];
+
 }
 
 //display small calendar
 function displayCalendar(e) {
-    if (e.target.nodeName == "INPUT") {
-        document.querySelector(".datepicker_sm").classList.add("active");
-    }
+    document.querySelector(".datepicker_sm").classList.add("active");
+    pickerInput = this;
+    console.log(pickerInput)
+
 }
 //close small calendar
 function closeCalendar(e) {
@@ -190,6 +205,41 @@ function closeCalendar(e) {
     }
 }
 
+//check input content
+function check() {
+    let input = document.querySelectorAll("input");
+    input.forEach(item => {
+        if (item.value !== "") {
+            item.classList.remove("form_err");
+        }
+    })
+}
+//submit data
+function submit() {
+    let verification = document.querySelectorAll("input")
+    verification.forEach(item => {
+        if (item.value == "") {
+            item.classList.add("form_err");
+        } else {
+            bookingData.name = verification[0].value;
+            bookingData.tel = verification[1].value;
+        }
+    });
+
+    //post data to server
+    if (bookingData.name !== "" && bookingData.tel !== "") {
+        if (bookingData.date.length > 1) {
+            postData(bookingData);
+        }
+    }
+}
+
 //addEventListener
-document.querySelector(".input_group").addEventListener("click", displayCalendar);
+document.querySelector(".reserve").addEventListener("click", reserve);
+document.querySelector(".reserve").addEventListener("click", putIn);
+document.querySelector(".reserve").addEventListener("click", inputDisplay);
+document.querySelector("#date-in").addEventListener("focus", displayCalendar);
+document.querySelector("#date-out").addEventListener("focus", displayCalendar);
 window.addEventListener("click", closeCalendar);
+document.querySelector(".submit").addEventListener("click", submit);
+document.querySelectorAll("input").forEach(item => { item.addEventListener("blur", check) })

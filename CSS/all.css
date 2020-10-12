@@ -603,7 +603,7 @@ body.active {
 }
 
 .datepicker .datebox .picker_between {
-  background-color: #d5e8f1;
+  background-color: #e5eef1;
 }
 
 .datepicker .datebox:last-child {
@@ -738,6 +738,10 @@ body.active {
   box-shadow: 0px 0px 5px 5px rgba(180, 219, 255, 0.5);
 }
 
+.form_item .form_style.form_err {
+  border-color: red;
+}
+
 .form_item .input_group {
   width: 243px;
   position: relative;
@@ -745,6 +749,17 @@ body.active {
 
 .form_item .input_group .form_style {
   width: 44.44444%;
+}
+
+.warning {
+  margin-left: 28%;
+  visibility: hidden;
+  font-size: 8px;
+  color: red;
+}
+
+.warning.active {
+  visibility: visible;
 }
 
 .datepicker_sm {
@@ -783,6 +798,9 @@ body.active {
   .datepicker_sm {
     left: -42px;
     top: 10px;
+  }
+  .warning {
+    margin-left: 0;
   }
 }
 
@@ -844,12 +862,12 @@ body.active {
   transform: scale(0.9);
 }
 
-.costing .btn_group .sure {
+.costing .btn_group .submit {
   background: #484848;
   color: #FFF;
 }
 
-.costing .btn_group .sure:active {
+.costing .btn_group .submit:active {
   transform: scale(0.9);
 }
 
