@@ -42,6 +42,7 @@ function getData() {
                 loaderOut();
                 singleRoom.push(...res.data.room);
                 renderSingleRoom();
+                deletData();
             })
             .catch(err => { console.log(err) })
     }
@@ -248,7 +249,7 @@ function submit() {
 //success result
 function deletData(){
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    axios.get(url + "rooms")
+    axios.delete(url + "rooms")
         .then(res => {
             console.log(res.data);
         })
