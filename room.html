@@ -100,7 +100,7 @@
         <div class="booking_view">
             <div class="booking_info">
                 <div class="user_booking">
-                    <h2>Reserve Time</h2>
+                    <h2>Reservation Time</h2>
                     <p class="line">＼＼＼</p>
                     <div class="form_item">
                         <label for="username">Name</label>
@@ -108,14 +108,14 @@
                     </div>
                     <div class="form_item">
                         <label for="phone">Phone</label>
-                        <input class="form_style" type="phone" id="phone" name="phone">
+                        <input class="form_style" type="tel" id="phone" name="phone">
                     </div>
                     <div class="form_item">
                         <label for="date-in">Check time</label>
                         <div class="input_group">
-                            <input class="form_style form_sm" type="text" id="date-in" name="date-in">
+                            <input class="form_style form_sm" id="date-in" name="date-in">
                             <span>～</span>
-                            <input class="form_style form_sm" type="text" id="date-out" name="date-out">
+                            <input class="form_style form_sm" id="date-out" name="date-out">
                             <div class="datepicker datepicker_sm"></div>
                         </div>
                     </div>
@@ -138,6 +138,22 @@
                         <button class="btn submit">Reseve</button>
                     </div>
                 </div>
+            </div>
+            <div class="success result clearfix">
+                <h3>Reservation Sucess</h3> 
+                <p class="line">＼＼＼</p>
+                <div class="success_logo">
+                    <i class="far fa-check-circle fa-4x"></i>
+                </div>
+                <a href="./index.html" class="home" onclick="deleteData()">Back to index</a>
+            </div>
+            <div class="fail result clearfix">
+                <h3>Reservation Fail</h3>
+                <p class="line">＼＼＼</p>
+                <p class="fail_text">
+                    This reservation time has been booked
+                </p>
+                <button class="home" onclick="failBack()">Back</button>
             </div>
         </div>
     </div>

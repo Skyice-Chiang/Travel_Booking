@@ -49,12 +49,19 @@ function getData() {
 //Ajax Post
 function postData(data){
     const roomID = location.search.slice(1);
-    localStorage.setItem('data', JSON.stringify(data));
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     axios.post(`${url}room/${roomID}`, data)
-    .then(res =>console.log(res))
-    .catch(err => console.log(err))
-    console.log(`${url}room/${roomID}`, data)
+    .then(res =>{
+        if(res.status == 200){
+            document.querySelector(".booking_info").classList.remove("active");
+            document.querySelector(".success").classList.add("active");
+        }
+        console.log(res);
+    })
+    .catch(err => {
+        document.querySelector(".booking_info").classList.remove("active");
+        document.querySelector(".fail").classList.add("active");
+    })
 }
 
 //loader
@@ -131,6 +138,16 @@ function renderSingleRoom() {
     roomPrice.innerHTML = priceStr;
     lightboxOption();
     offerJudge();
+    
+    //addEventListener
+    document.querySelector(".reserve").addEventListener("click", reserve);
+    document.querySelector(".reserve").addEventListener("click", putIn);
+    document.querySelector(".reserve").addEventListener("click", inputDisplay);
+    document.querySelector("#date-in").addEventListener("focus", displayCalendar);
+    document.querySelector("#date-out").addEventListener("focus", displayCalendar);
+    window.addEventListener("click", closeCalendar);
+    document.querySelector(".submit").addEventListener("click", submit);
+    document.querySelectorAll("input").forEach(item => { item.addEventListener("blur", check) })
 };
 
 //offer service
@@ -183,12 +200,6 @@ function cancel() {
     document.querySelector(".booking_info").classList.remove("active");
     document.querySelector(".datepicker_sm").classList.remove("active");
     document.querySelector(".datepicker_sm").innerHTML = "";
-    // document.querySelectorAll(".picker").forEach(item=>{
-    //     item.classList.remove("picker_between");
-    //     item.classList.remove("picker_item")
-    // })
-    // pickerboxs = [];
-
 }
 
 //display small calendar
@@ -234,12 +245,20 @@ function submit() {
     }
 }
 
-//addEventListener
-document.querySelector(".reserve").addEventListener("click", reserve);
-document.querySelector(".reserve").addEventListener("click", putIn);
-document.querySelector(".reserve").addEventListener("click", inputDisplay);
-document.querySelector("#date-in").addEventListener("focus", displayCalendar);
-document.querySelector("#date-out").addEventListener("focus", displayCalendar);
-window.addEventListener("click", closeCalendar);
-document.querySelector(".submit").addEventListener("click", submit);
-document.querySelectorAll("input").forEach(item => { item.addEventListener("blur", check) })
+//success result
+function deletData(){
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios.get(url + "rooms")
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => { console.log("error") })
+}
+
+//fail result
+function failBack(){
+    document.querySelector(".fail").classList.remove("active");
+    document.querySelector(".booking_info").classList.add("active");
+}
+
+

@@ -674,11 +674,13 @@ body.active {
   background-color: #FFF;
   opacity: 0;
   transition: all 1s;
+  z-index: 1;
 }
 
 .booking_info.active {
   transform: translate(-50%, -50%);
   opacity: 1;
+  z-index: 3;
 }
 
 @media (max-width: 420px) {
@@ -880,6 +882,69 @@ body.active {
     padding: 20px 24px;
     margin-bottom: 20px;
   }
+}
+
+.result {
+  position: absolute;
+  padding: 30px 42px;
+  width: 420px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  background-color: #FFF;
+  opacity: 0;
+  transition: all 1s;
+  z-index: 1;
+}
+
+.result.success.active, .result.fail.active {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  z-index: 3;
+}
+
+.result h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.result .success_logo {
+  text-align: center;
+  color: #ADE8C6;
+  margin: 20px 0;
+}
+
+.result .fail_text {
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.result .home {
+  float: right;
+  text-decoration: none;
+  background: #484848;
+  color: #FFF;
+  padding: 10px 24px;
+  outline: none;
+  border: none;
+  transition: all 0.3s;
+}
+
+.result .home:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.result .home:active {
+  transform: scale(0.9);
+}
+
+.result.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 /* room */
