@@ -798,8 +798,8 @@ body.active {
     width: 100%;
   }
   .datepicker_sm {
-    left: -42px;
-    top: 10px;
+    left: -13%;
+    top: -86%;
   }
   .warning {
     margin-left: 0;
@@ -945,6 +945,12 @@ body.active {
   content: "";
   display: table;
   clear: both;
+}
+
+@media (max-width: 768px) {
+  .result {
+    width: 100%;
+  }
 }
 
 /* room */
