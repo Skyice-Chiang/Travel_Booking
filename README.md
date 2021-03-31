@@ -1,6 +1,7 @@
 # Travel Booking
 THE F2E 前端修練精神時光屋 - 第六關 旅館預約服務\
 網址 : https://challenge.thef2e.com/news/17 \
+設計稿 : https://z7x2c0v0b8.github.io/the_f2e_2nd/hotel_reservation.html#artboard1 \
 作品Demo : https://skyice-chiang.github.io/Travel_Booking/
 
 ### **練習目標**  
